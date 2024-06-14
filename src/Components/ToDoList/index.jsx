@@ -1,13 +1,19 @@
 {
   /* Comments here */
 }
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ToDoList.css";
 import todoImage from "../../assets/images/todoImage.png";
 
 function ToDoList() {
-  const [list, setList] = useState([]);
+  const listStorage = localStorage.getItem("List");
+
+  const [list, setList] = useState(listStorage ? JSON.parse(listStorage) : []);
   const [newItem, setNewItem] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("List", JSON.stringify(list));
+  }, [list]);
 
   //function to get data form form:
   function addItem(form) {
